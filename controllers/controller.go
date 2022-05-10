@@ -42,6 +42,31 @@ func CriaNovoAluno(c *gin.Context) {
 	c.JSON(200, aluno)
 }
 
+func DeletaAluno(c *gin.Context) {
+	var aluno models.Aluno
+	id := c.Params.ByName("id")
+	database.DB.Delete(&aluno, id)
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Aluno deletado com sucesso",
+	})
+}
+
+func EditaAluno(c *gin.Context) {
+	var aluno models.Aluno
+	id := c.Params.ByName("id")
+	err := c.ShouldBindJSON(&aluno)
+	database.DB.First(&aluno, id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	database.DB.Model(&aluno).UpdateColumns(aluno)
+	c.JSON(200, aluno)
+}
+
 func Saudacao(c *gin.Context) {
 	nome := c.Params.ByName("nome")
 	c.JSON(200, gin.H{
