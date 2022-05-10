@@ -1,8 +1,19 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/henryhiraki22/api-go-gin/models"
+	"github.com/henryhiraki22/api-go-gin/routes"
+)
+
+type Alunos struct {
+	id   string
+	nome string
+}
 
 func main() {
-	r := gin.Default()
-	r.Run(":8080")
+	models.Alunos = []models.Aluno{
+		{Nome: "Teste1", CPF: "123122311231", RG: "1231432423412"},
+		{Nome: "Teste2", CPF: "123121115566", RG: "1231432423412"},
+	}
+	routes.HandleRequests()
 }
