@@ -10,6 +10,9 @@
 *.so
 *.dylib
 
+postgres*
+postgres-data/*
+postgres-data/global/pg_internal.init
 # Test binary, built with `go test -c`
 *.test
 
